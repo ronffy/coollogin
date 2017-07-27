@@ -1,0 +1,54 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录/注册</title>
+</head>
+<body>
+<div class="root">
+	<div class="main clearfix" id="v-main" style="display:none;">
+		<div class="btnbox">
+			<div class="btnbox-btn">
+				<div class="btnbox-cont clearfix">
+					<div class="btnbox-info">
+						<h2>登录</h2>
+						<p class="mt-20 mb-20">点击输入您的用户名和账号</p>
+						<span class="btn btn-login" id="v-btn-login">登录</span>
+					</div>
+				</div>
+			</div>
+			<div class="btnbox-btn">
+				<div class="btnbox-cont clearfix">
+					<div class="btnbox-info">
+						<h2>注册</h2>
+						<p class="mt-20 mb-20">点击填写您新的用户名和账号完成注册</p>
+						<span class="btn btn-signup" id="v-btn-signup">注册</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="imgbox fordoimg">
+			<p class="pimg"><img src="src/img/yourname.jpg"></p>
+		</div>
+		<div class="modelBox fordoimg" id="v-modelbox">
+			<p class="pimg"><img src="src/img/yourname.jpg"></p>
+			<div class="modelBox-info modelBox-login hide">
+				<h2>登录</h2>
+				<input type="text" placeholder="用户名">
+				<input type="password" placeholder="密码">
+				<span class="btn btn-login mt-25">登录</span>
+			</div>
+			<div class="modelBox-info modelBox-signup hide">
+				<h2>注册</h2>
+				<input type="text" placeholder="用户名">
+				<input type="password" placeholder="密码">
+				<input type="password" placeholder="确认密码">
+				<span class="btn btn-signup mt-25">注册</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="dist/bubble.js"></script>
+</body>
+</html>
