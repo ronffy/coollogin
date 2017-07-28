@@ -1,17 +1,21 @@
 # coollogin
 清新别致的登录、注册页
 
+### [点我预览吧](https://wanghairong-i.github.io/coollogin/)
+
 ## 介绍
 
 -   webpack + es6 + less + postcss(autoprefixer) 跑项目
--   巧妙的布局 + css3 实现动画的登录、注册页
+-   巧妙的html布局, 配合css3和js, 实现动画的登录、注册页
 
 ## how to run
 
 ```javascript
 
-	npm install
+//安装
+npm install  
 
-	npm start
+//启动
+npm start
 
 ```
