@@ -7,6 +7,7 @@
 
 -   webpack + es6 + less + postcss(autoprefixer) 跑项目
 -   巧妙的html布局, 配合css3和js, 实现动画的登录、注册页
+-   非常不错的交互体验
 
 ## how to run
 
