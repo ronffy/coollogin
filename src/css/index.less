@@ -1,3 +1,4 @@
+/*index.less*/
 .root{
 	width: 100%;
 	height: 100%;
@@ -21,6 +22,7 @@
 	.btn-signup{
 		background: #FF9800;
 	}
+	/*登录/注册按钮组*/
 	.btnbox{
 		position: relative;
 		z-index: 4;
@@ -35,7 +37,7 @@
 			position: relative;
 			width: 80%;
 			margin: 60px auto 0;
-			padding: 15px 0px;
+			padding: 15px 0px 20px;
 			border-radius: 3px;
 			background-color: rgba(187, 168, 170, 0.8);
 		}
@@ -59,6 +61,7 @@
 			}
 		}
 	}
+	/*第一层背景图层*/
 	.imgbox{
 		z-index: 2;
 		background: rgba(255, 255, 255, 0.8);
@@ -67,7 +70,8 @@
 			filter: grayscale(100%);
 		}
 	}
-	.modelBox{
+	/*弹出的登录/注册表单层 */
+	.modelbox{
 		z-index: 3;
 		width: 50%;
 		background: #fff;
@@ -75,8 +79,8 @@
 		.pimg img{
 			opacity: .5;
 		}
-		.modelBox-login,
-		.modelBox-signup{
+		.modelbox-login,
+		.modelbox-signup{
 			position: absolute;
 			left: 0;
 			top: 0;
@@ -94,6 +98,19 @@
 				color: #333;
 			}
 		}
+		.iconbox-return{
+			position: absolute;
+			left: 12px;
+			top: 8px;
+			opacity: .5;
+			svg{
+				cursor: pointer;
+				fill-opacity: .8;
+				&:hover{
+					fill-opacity: 1;
+				}
+			}
+		}
 		&.overup-login,
 		&.overup-signup{
 			z-index: 7;
@@ -102,7 +119,7 @@
 		&.overup-login{
 			top: -37px;
 			height: 350px;
-			.modelBox-login{
+			.modelbox-login{
 				/*opacity: 1;*/
 			}
 			.pimg img{
@@ -113,7 +130,7 @@
 			left: 320px;
 			top: -58px;
 			height: 400px;
-			.modelBox-signup{
+			.modelbox-signup{
 				/*opacity: 1;*/
 			}
 			.pimg img{

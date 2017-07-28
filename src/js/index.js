@@ -6,22 +6,31 @@ import '../css/index'
 $(function(){
 	$('#v-main').show();
 	const $modelbox = $('#v-modelbox');
-	$('#v-btn-login').click(() => {
+	const $body = $('body');
+	let $btnReturn = $('#v-icon-return');
+
+	$body
+	.on('click', '#v-btn-login', () => {
 		toggleModel('login');
 	})
-	$('#v-btn-signup').click(() => {
+	.on('click', '#v-btn-signup', () => {
 		toggleModel('signup');
 	})
+	.on('click', '#v-icon-return', function(){
+		$(this).hide();
+		$modelbox.removeClass('overup-login overup-signup').find('.modelbox-info').hide().css('opacity', 0);
+	});
 
 	function toggleModel(state){
+		$btnReturn.show();
 		state = state || 'login';
 		let relati = 'signup';
 		state === 'signup' ? relati = 'login' : '';
 		$modelbox
 		.addClass(`overup-${state}`)
 		.removeClass(`overup-${relati}`)
-		.find('.modelBox-info').hide().css('opacity', 0);
-		$(`.modelBox-${state}`).show(function(){
+		.find('.modelbox-info').hide().css('opacity', 0);
+		$(`.modelbox-${state}`).show(function(){
 			setTimeout(() => {
 				$(this).css('opacity','1');
 			},100)
