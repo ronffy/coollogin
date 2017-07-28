@@ -1,7 +1,7 @@
 /*
 ** index.js
 ** 2017.7.28
-** author: whr
+** author: whr 
 */
 import $ from './common/jquery'
 import '../css/reset'
