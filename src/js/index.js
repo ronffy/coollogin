@@ -1,7 +1,7 @@
 /*
 ** index.js
 ** 2017.7.28
-** author: whr 
+** from: https://github.com/wanghairong-i/coollogin
 */
 import $ from './common/jquery'
 import '../css/reset'
