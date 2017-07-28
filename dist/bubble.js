@@ -9603,28 +9603,63 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _defineEnumerableProperties(obj, descs) { for (var key in descs) { var desc = descs[key]; desc.configurable = desc.enumerable = true; if ("value" in desc) desc.writable = true; Object.defineProperty(obj, key, desc); } return obj; }
+	
 	(0, _jquery2.default)(function () {
-		(0, _jquery2.default)('#v-main').show();
-		var $modelbox = (0, _jquery2.default)('#v-modelbox');
-		var $body = (0, _jquery2.default)('body');
+		var _state, _type, _model, _mutatorMap;
+	
+		(0, _jquery2.default)('#v-main').show(); //webpack打包样式表的短板时需要js加载时才能将样式推送到页面上，这时可能会造成页面无样式错乱。 所以先将main容器隐藏，待css样式有了后再显示此容器
+		var $modelbox = (0, _jquery2.default)('#v-modelbox'),
+		    $btnbox = (0, _jquery2.default)('#v-btnbox'),
+		    $body = (0, _jquery2.default)('body');
 		var $btnReturn = (0, _jquery2.default)('#v-icon-return');
 	
+		var model = (_model = {
+			state: false, //记录当前是否显示了登录或注册弹层，默认false
+			type: 'login' }, _state = 'state', _mutatorMap = {}, _mutatorMap[_state] = _mutatorMap[_state] || {}, _mutatorMap[_state].set = function (b) {
+			toggleModelState(b);
+		}, _type = 'type', _mutatorMap[_type] = _mutatorMap[_type] || {}, _mutatorMap[_type].set = function (type) {
+			toggleModelType(type);
+		}, _defineEnumerableProperties(_model, _mutatorMap), _model);
+	
 		$body.on('click', '#v-btn-login', function () {
-			toggleModel('login');
+			Object.assign(model, {
+				state: true,
+				type: 'login'
+			});
 		}).on('click', '#v-btn-signup', function () {
-			toggleModel('signup');
+			Object.assign(model, {
+				state: true,
+				type: 'signup'
+			});
 		}).on('click', '#v-icon-return', function () {
-			(0, _jquery2.default)(this).hide();
-			$modelbox.removeClass('overup-login overup-signup').find('.modelbox-info').hide().css('opacity', 0);
+			model.state = false;
 		});
 	
-		function toggleModel(state) {
-			$btnReturn.show();
-			state = state || 'login';
+		function toggleModelState() {
+			var bool = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	
+			if (bool === true) {
+				//显示登录/注册弹层时
+				$btnReturn.show();
+				$btnbox.addClass('showmodel');
+			} else {
+				//关闭登录/注册弹层时
+				$btnReturn.hide();
+				$btnbox.removeClass('showmodel');
+				$modelbox.removeClass('overup-login overup-signup').find('.modelbox-info').hide().css('opacity', 0);
+			}
+		}
+	
+		function toggleModelType() {
+			var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'login';
+	
 			var relati = 'signup';
-			state === 'signup' ? relati = 'login' : '';
-			$modelbox.addClass('overup-' + state).removeClass('overup-' + relati).find('.modelbox-info').hide().css('opacity', 0);
-			(0, _jquery2.default)('.modelbox-' + state).show(function () {
+			var signupState = ''; //弹层收回时，根据当前type设置需要高亮的modelbox位置
+			type === 'signup' ? relati = 'login' : '';
+			$btnbox.removeClass('btnbox-' + relati).addClass('btnbox-' + type);
+			$modelbox.removeClass('overup-' + relati + ' ' + (type === 'signup' ? '' : 'signupState')).addClass('overup-' + type + ' ' + (type === 'signup' ? 'signupState' : '')).find('.modelbox-info').hide().css('opacity', 0);
+			(0, _jquery2.default)('.modelbox-' + type).show(function () {
 				var _this = this;
 	
 				setTimeout(function () {
@@ -20365,7 +20400,7 @@
 	
 	
 	// module
-	exports.push([module.id, "/*index.less*/\n.root {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  background: linear-gradient(140deg, rgba(0, 86, 103, 0.3), rgba(153, 27, 0, 0.3), rgba(189, 38, 54, 0.3));\n  text-align: center;\n  color: #fff;\n}\n.main {\n  position: relative;\n  width: 640px;\n  margin: 100px auto 0;\n  -webkit-box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.5);\n          box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.5);\n  /*登录/注册按钮组*/\n  /*第一层背景图层*/\n  /*弹出的登录/注册表单层 */\n}\n.main h2 {\n  font-size: 20px;\n  font-weight: bold;\n}\n.main .btn-login {\n  background: #f44336;\n}\n.main .btn-signup {\n  background: #FF9800;\n}\n.main .btnbox {\n  position: relative;\n  z-index: 4;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 280px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.main .btnbox .btnbox-btn {\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n.main .btnbox .btnbox-info {\n  position: relative;\n  width: 80%;\n  margin: 60px auto 0;\n  padding: 15px 0px 20px;\n  border-radius: 3px;\n  background-color: rgba(187, 168, 170, 0.8);\n}\n.main .fordoimg {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.main .fordoimg .pimg {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.main .fordoimg .pimg img {\n  margin-left: -199px;\n  margin-top: -175px;\n  -webkit-animation: flout 25s infinite linear;\n          animation: flout 25s infinite linear;\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n.main .imgbox {\n  z-index: 2;\n  background: rgba(255, 255, 255, 0.8);\n}\n.main .imgbox .pimg img {\n  opacity: .2;\n  -webkit-filter: grayscale(100%);\n          filter: grayscale(100%);\n}\n.main .modelbox {\n  z-index: 3;\n  width: 50%;\n  background: #fff;\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n.main .modelbox .pimg img {\n  opacity: .5;\n}\n.main .modelbox .modelbox-login,\n.main .modelbox .modelbox-signup {\n  position: absolute;\n  left: 0;\n  top: 0;\n  margin-top: 50px;\n  opacity: 0;\n  -webkit-transition: all .5s;\n  transition: all .5s;\n  text-align: center;\n}\n.main .modelbox .modelbox-login input,\n.main .modelbox .modelbox-signup input {\n  display: inline-block;\n  width: 80%;\n  padding: 0 10px;\n  margin-top: 25px;\n  line-height: 40px;\n  border: 0;\n  color: #333;\n}\n.main .modelbox .iconbox-return {\n  position: absolute;\n  left: 12px;\n  top: 8px;\n  opacity: .5;\n}\n.main .modelbox .iconbox-return svg {\n  cursor: pointer;\n  fill-opacity: .8;\n}\n.main .modelbox .iconbox-return svg:hover {\n  fill-opacity: 1;\n}\n.main .modelbox.overup-login,\n.main .modelbox.overup-signup {\n  z-index: 7;\n  -webkit-box-shadow: 1px 10px 30px -10px rgba(0, 0, 0, 0.5);\n          box-shadow: 1px 10px 30px -10px rgba(0, 0, 0, 0.5);\n}\n.main .modelbox.overup-login {\n  top: -37px;\n  height: 350px;\n}\n.main .modelbox.overup-login .modelbox-login {\n  /*opacity: 1;*/\n}\n.main .modelbox.overup-login .pimg img {\n  margin-top: -137px;\n}\n.main .modelbox.overup-signup {\n  left: 320px;\n  top: -58px;\n  height: 400px;\n}\n.main .modelbox.overup-signup .modelbox-signup {\n  /*opacity: 1;*/\n}\n.main .modelbox.overup-signup .pimg img {\n  margin-left: -520px;\n  margin-top: -118px;\n}\n@-webkit-keyframes flout {\n  0%,\n  100% {\n    -webkit-transform: scale(1) translate(0px);\n            transform: scale(1) translate(0px);\n  }\n  25%,\n  75% {\n    -webkit-transform: scale(1.2) translate(80px);\n            transform: scale(1.2) translate(80px);\n  }\n  50% {\n    -webkit-transform: scale(1.5) translate(40px);\n            transform: scale(1.5) translate(40px);\n  }\n}\n@keyframes flout {\n  0%,\n  100% {\n    -webkit-transform: scale(1) translate(0px);\n            transform: scale(1) translate(0px);\n  }\n  25%,\n  75% {\n    -webkit-transform: scale(1.2) translate(80px);\n            transform: scale(1.2) translate(80px);\n  }\n  50% {\n    -webkit-transform: scale(1.5) translate(40px);\n            transform: scale(1.5) translate(40px);\n  }\n}\n", ""]);
+	exports.push([module.id, "/*index.less*/\n.root {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  background: linear-gradient(140deg, rgba(0, 86, 103, 0.3), rgba(153, 27, 0, 0.3), rgba(189, 38, 54, 0.3));\n  text-align: center;\n  color: #fff;\n}\n.main {\n  position: relative;\n  width: 640px;\n  margin: 100px auto 0;\n  -webkit-box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.5);\n          box-shadow: 1px 5px 20px -5px rgba(0, 0, 0, 0.5);\n  /*登录/注册按钮组*/\n  /*第一层背景图层*/\n  /*弹出的登录/注册表单层 */\n}\n.main h2 {\n  font-size: 20px;\n  font-weight: bold;\n}\n.main .btn-login {\n  background: #f44336;\n}\n.main .btn-signup {\n  background: #FF9800;\n}\n.main .btnbox {\n  position: relative;\n  z-index: 4;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 280px;\n  background: rgba(255, 255, 255, 0.1);\n}\n.main .btnbox .btnbox-btn {\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n}\n.main .btnbox .btnbox-info {\n  position: relative;\n  width: 80%;\n  margin: 60px auto 0;\n  padding: 15px 0px 20px;\n  border-radius: 3px;\n  background-color: rgba(187, 168, 170, 0.8);\n  opacity: 1;\n  -webkit-transition: all .5s;\n  transition: all .5s;\n}\n.main .btnbox.showmodel.btnbox-login .info-login {\n  opacity: 0;\n}\n.main .btnbox.showmodel.btnbox-signup .info-signup {\n  opacity: 0;\n}\n.main .fordoimg {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.main .fordoimg .pimg {\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n.main .fordoimg .pimg img {\n  margin-left: -199px;\n  margin-top: -175px;\n  -webkit-animation: flout 25s infinite linear;\n          animation: flout 25s infinite linear;\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n.main .imgbox {\n  z-index: 2;\n  background: rgba(255, 255, 255, 0.8);\n}\n.main .imgbox .pimg img {\n  opacity: .2;\n  -webkit-filter: grayscale(100%);\n          filter: grayscale(100%);\n}\n.main .modelbox {\n  z-index: 3;\n  width: 50%;\n  background: #fff;\n  -webkit-transition: all 0.5s;\n  transition: all 0.5s;\n}\n.main .modelbox .pimg img {\n  opacity: .5;\n}\n.main .modelbox .modelbox-login,\n.main .modelbox .modelbox-signup {\n  position: absolute;\n  left: 0;\n  top: 0;\n  margin-top: 50px;\n  opacity: 0;\n  -webkit-transition: all .5s;\n  transition: all .5s;\n  text-align: center;\n}\n.main .modelbox .modelbox-login input,\n.main .modelbox .modelbox-signup input {\n  display: inline-block;\n  width: 80%;\n  padding: 0 10px;\n  margin-top: 25px;\n  line-height: 40px;\n  border: 0;\n  color: #333;\n}\n.main .modelbox .iconbox-return {\n  position: absolute;\n  left: 12px;\n  top: 8px;\n  opacity: .5;\n}\n.main .modelbox .iconbox-return svg {\n  cursor: pointer;\n  fill-opacity: .8;\n}\n.main .modelbox .iconbox-return svg:hover {\n  fill-opacity: 1;\n}\n.main .modelbox.overup-login,\n.main .modelbox.overup-signup {\n  z-index: 7;\n  -webkit-box-shadow: 1px 10px 30px -10px rgba(0, 0, 0, 0.5);\n          box-shadow: 1px 10px 30px -10px rgba(0, 0, 0, 0.5);\n}\n.main .modelbox.overup-login {\n  top: -37px;\n  height: 350px;\n}\n.main .modelbox.overup-login .pimg img {\n  margin-top: -137px;\n}\n.main .modelbox.overup-signup {\n  left: 320px;\n  top: -58px;\n  height: 400px;\n}\n.main .modelbox.overup-signup .pimg img {\n  margin-left: -520px;\n  margin-top: -118px;\n}\n.main .modelbox.signupState {\n  left: 320px;\n}\n.main .modelbox.signupState .pimg img {\n  margin-left: -520px;\n}\n@-webkit-keyframes flout {\n  0%,\n  100% {\n    -webkit-transform: scale(1) translate(0px);\n            transform: scale(1) translate(0px);\n  }\n  25%,\n  75% {\n    -webkit-transform: scale(1.2) translate(80px);\n            transform: scale(1.2) translate(80px);\n  }\n  50% {\n    -webkit-transform: scale(1.5) translate(40px);\n            transform: scale(1.5) translate(40px);\n  }\n}\n@keyframes flout {\n  0%,\n  100% {\n    -webkit-transform: scale(1) translate(0px);\n            transform: scale(1) translate(0px);\n  }\n  25%,\n  75% {\n    -webkit-transform: scale(1.2) translate(80px);\n            transform: scale(1.2) translate(80px);\n  }\n  50% {\n    -webkit-transform: scale(1.5) translate(40px);\n            transform: scale(1.5) translate(40px);\n  }\n}\n", ""]);
 	
 	// exports
 

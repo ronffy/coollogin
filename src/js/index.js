@@ -4,39 +4,67 @@ import '../css/common'
 import '../css/index'
 
 $(function(){
-	$('#v-main').show();
-	const $modelbox = $('#v-modelbox');
-	const $body = $('body');
+	$('#v-main').show();//webpack打包样式表的短板时需要js加载时才能将样式推送到页面上，这时可能会造成页面无样式错乱。 所以先将main容器隐藏，待css样式有了后再显示此容器
+	const $modelbox = $('#v-modelbox'),
+			$btnbox = $('#v-btnbox'),
+			$body = $('body');
 	let $btnReturn = $('#v-icon-return');
+
+	const model = {
+		state: false, //记录当前是否显示了登录或注册弹层，默认false
+		type: 'login',  //标记显示的是登录弹层还是注册弹层
+		set state(b){
+			toggleModelState(b);
+		},
+		set type(type){
+			toggleModelType(type);
+		}
+	};
 
 	$body
 	.on('click', '#v-btn-login', () => {
-		toggleModel('login');
+		Object.assign(model, {
+			state: true,
+			type: 'login'
+		});
 	})
 	.on('click', '#v-btn-signup', () => {
-		toggleModel('signup');
+		Object.assign(model, {
+			state: true,
+			type: 'signup'
+		});
 	})
 	.on('click', '#v-icon-return', function(){
-		$(this).hide();
-		$modelbox.removeClass('overup-login overup-signup').find('.modelbox-info').hide().css('opacity', 0);
+		model.state = false;
 	});
 
-	function toggleModel(state){
-		$btnReturn.show();
-		state = state || 'login';
+	function toggleModelState(bool = false){
+		if(bool === true){//显示登录/注册弹层时
+			$btnReturn.show();
+			$btnbox.addClass('showmodel');
+		}else{//关闭登录/注册弹层时
+			$btnReturn.hide();
+			$btnbox.removeClass('showmodel');
+			$modelbox.removeClass('overup-login overup-signup').find('.modelbox-info').hide().css('opacity', 0);
+		}
+	}
+
+	function toggleModelType(type = 'login'){
 		let relati = 'signup';
-		state === 'signup' ? relati = 'login' : '';
+		let signupState = ''; //弹层收回时，根据当前type设置需要高亮的modelbox位置
+		type === 'signup' ? relati = 'login' : '';
+		$btnbox.removeClass(`btnbox-${relati}`).addClass(`btnbox-${type}`);
 		$modelbox
-		.addClass(`overup-${state}`)
-		.removeClass(`overup-${relati}`)
+		.removeClass(`overup-${relati} ${type === 'signup' ? '' : 'signupState'}`)
+		.addClass(`overup-${type} ${type === 'signup' ? 'signupState' : ''}`)
 		.find('.modelbox-info').hide().css('opacity', 0);
-		$(`.modelbox-${state}`).show(function(){
+		$(`.modelbox-${type}`).show(function(){
 			setTimeout(() => {
 				$(this).css('opacity','1');
 			},100)
 		})
 	}
-})
+});
 
 
 

@@ -40,6 +40,14 @@
 			padding: 15px 0px 20px;
 			border-radius: 3px;
 			background-color: rgba(187, 168, 170, 0.8);
+			opacity: 1;
+			transition: all .5s;
+		}
+		&.showmodel.btnbox-login .info-login{
+			opacity: 0;
+		}
+		&.showmodel.btnbox-signup .info-signup{
+			opacity: 0;
 		}
 	}
 	.fordoimg{
@@ -119,9 +127,6 @@
 		&.overup-login{
 			top: -37px;
 			height: 350px;
-			.modelbox-login{
-				/*opacity: 1;*/
-			}
 			.pimg img{
 				margin-top: -137px;
 			}
@@ -130,12 +135,15 @@
 			left: 320px;
 			top: -58px;
 			height: 400px;
-			.modelbox-signup{
-				/*opacity: 1;*/
-			}
 			.pimg img{
 				margin-left: -520px;
 				margin-top: -118px;
+			}
+		}
+		&.signupState{
+			left: 320px;
+			.pimg img{
+				margin-left: -520px;
 			}
 		}
 	}
