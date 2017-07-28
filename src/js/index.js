@@ -56,7 +56,6 @@ $(function(){
 
 	function toggleModelType(type = 'login'){
 		let relati = 'signup';
-		let signupState = ''; //弹层收回时，根据当前type设置需要高亮的modelbox位置
 		type === 'signup' ? relati = 'login' : '';
 		$btnbox.removeClass(`btnbox-${relati}`).addClass(`btnbox-${type}`);
 		$modelbox
@@ -70,54 +69,3 @@ $(function(){
 		})
 	}
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function clog(...args){
-	console.log(...args);
-}
