@@ -1,8 +1,6 @@
 # coollogin
 清新别致的登录、注册页
 
-### [点我预览吧](https://roonly.github.io/coollogin/)
-
 ## 介绍
 
 -   webpack + es6 + less + postcss(autoprefixer) 跑项目
